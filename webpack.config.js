@@ -2,9 +2,10 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  entry: [
-    './src/index'
-  ],
+  entry: {
+    stage: './src/stage',
+    player: './src/player',
+  },
   module: {
     loaders: [
       { test: /\.js?$/, loader: 'babel', exclude: /node_modules/ },
@@ -17,7 +18,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   devServer: {
     contentBase: './dist',

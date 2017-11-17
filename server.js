@@ -19,8 +19,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/dist/index.html')
+app.get('/', function (request, response) {
+  response.sendFile(__dirname + '/dist/player.html')
+});
+
+app.get('/watch', function (request, response) {
+  response.sendFile(__dirname + '/dist/stage.html')
 });
 
 io.on('connection', function(client) {

@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var path = require('path');
 
+var Configuration = require('./config.json');
+
 module.exports = {
   entry: {
     player: './src/player',
@@ -12,6 +14,9 @@ module.exports = {
       { test: /\.css$/, loader: 'style!css' },
       { test: /\.less$/, loader: 'style!css!less' }
     ]
+  },
+  externals: {
+    config: JSON.stringify(Configuration),
   },
   resolve: {
     extensions: ['', '.js']

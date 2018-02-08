@@ -23,15 +23,17 @@ app.get('/', function (request, response) {
   response.sendFile(__dirname + '/dist/player.html')
 });
 
-app.get('/watch', function (request, response) {
-  response.sendFile(__dirname + '/dist/stage.html')
+io.sockets.on('connection', function (socket) {
+  socket.on('subscribe', function(data) {
+    socket.join(data.room);
+  })
+  socket.on('unsubscribe', function(data) { socket.leave(data.room); })
 });
 
-io.on('connection', function(client) {
-  console.log('client connected!');
-
-  client.on('join', function(data) {
-    console.log(data);
+io.on('connection', function(socket) {
+  socket.on('join', (data) => {
+  });
+  socket.on('disconnect', (reason) => {
   });
 });
 

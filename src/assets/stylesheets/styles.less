@@ -40,46 +40,47 @@ body {
       background: lighten(@camera-color, 5%);
     }
   }
-}
+  .camera-solid {
 
-.camera-solid {
-
-  &.icon {
-    color: lighten(@camera-color, 50%);
-    position: absolute;
-    margin-left: 5px;
-    margin-top: -10px;
-    width: 32px;
-    height: 20px;
-    border-radius: 1px;
-    border: solid 1px currentColor;
-    background-color: currentColor;
-
-
-    &:before {
-      content: '';
+    &.icon {
+      color: lighten(@camera-color, 50%);
       position: absolute;
-      left: 10px;
-      top: 4px;
-      width: 8px;
-      height: 8px;
-      border-radius: 6px;
-      color: @camera-color;
-      border: solid 2px currentColor;
+      margin-left: 5px;
+      margin-top: -10px;
+      width: 32px;
+      height: 20px;
+      border-radius: 1px;
+      border: solid 1px currentColor;
       background-color: currentColor;
-    }
 
-    &:after {
-      content: '';
-      position: absolute;
-      right: 4px;
-      top: -4px;
-      width: 8px;
-      height: 2px;
-      border-radius: 2px 2px 0 0;
-      background-color: currentColor;
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 10px;
+        top: 4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 6px;
+        color: @camera-color;
+        border: solid 2px currentColor;
+        background-color: currentColor;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        right: 4px;
+        top: -4px;
+        width: 8px;
+        height: 2px;
+        border-radius: 2px 2px 0 0;
+        background-color: currentColor;
+      }
     }
   }
 }
+
+
 
 

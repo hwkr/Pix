@@ -6,6 +6,7 @@ var Configuration = require('./config.json');
 module.exports = {
   entry: {
     client: './src/client',
+    view: './src/view',
   },
   module: {
     loaders: [

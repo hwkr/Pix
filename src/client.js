@@ -34,9 +34,6 @@ const App = React.createClass({
     socket.on('connect', function (data) {
       socket.emit('join', 'Client connected!');
     });
-    socket.on('score', function (data) {
-      t.setState({ score: data.score });
-    });
   },
 
   render() {

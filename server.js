@@ -23,6 +23,10 @@ app.get('/', function (request, response) {
   response.sendFile(__dirname + '/dist/client.html')
 });
 
+app.get('/view', function (request, response) {
+  response.sendFile(__dirname + '/dist/view.html')
+});
+
 io.sockets.on('connection', function (socket) {
   socket.on('subscribe', function(data) {
     socket.join(data.room);
@@ -32,6 +36,7 @@ io.sockets.on('connection', function (socket) {
 
 io.on('connection', function(socket) {
   socket.on('join', (data) => {
+    console.log(data);
   });
   socket.on('disconnect', (reason) => {
   });

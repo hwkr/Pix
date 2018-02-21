@@ -3,8 +3,11 @@ import 'tracking/build/data/face.js'
 
 import './assets/stylesheets/styles.less';
 
+import faceimg from './assets/img/face.jpg'
+
 let socket = io.connect();
 
+const offset = 10;
 
 window.onload = function() {
   var video = document.getElementById('video');
@@ -15,11 +18,19 @@ window.onload = function() {
   tracker.setStepSize(1.5);
   tracker.setEdgesDensity(0.1);
   tracking.track('#video', tracker, { camera: true });
-  tracker.on('track', function(event) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    event.data.forEach(function(rect) {
-      context.strokeStyle = '#a64ceb';
-      context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+
+  context.filter = 'blur(1px) opacity(90%)';
+
+  var img = new Image();   // Create new img element
+  img.src = faceimg;
+  img.addEventListener('load', function() {
+    tracker.on('track', function(event) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      event.data.forEach(function(rect) {
+        context.drawImage(img, rect.x - offset, rect.y + offset, rect.width + offset, rect.height + offset);
+
+      });
     });
-  });
+  }, false);
+
 };

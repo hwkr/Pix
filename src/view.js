@@ -1,31 +1,25 @@
-import React from 'react';
-import { render } from 'react-dom';
-import Webcam from 'react-webcam';
+import 'tracking/build/tracking.js'
+import 'tracking/build/data/face.js'
 
 import './assets/stylesheets/styles.less';
 
 let socket = io.connect();
 
-const App = React.createClass({
 
-  getInitialState() {
-    return {};
-  },
-
-  componentDidMount() {
-    const t = this;
-    socket.on('connect', function (data) {
-      socket.emit('join', 'View connected!');
+window.onload = function() {
+  var video = document.getElementById('video');
+  var canvas = document.getElementById('canvas');
+  var context = canvas.getContext('2d');
+  var tracker = new tracking.ObjectTracker('face');
+  tracker.setInitialScale(2);
+  tracker.setStepSize(1.5);
+  tracker.setEdgesDensity(0.1);
+  tracking.track('#video', tracker, { camera: true });
+  tracker.on('track', function(event) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    event.data.forEach(function(rect) {
+      context.strokeStyle = '#a64ceb';
+      context.strokeRect(rect.x, rect.y, rect.width, rect.height);
     });
-  },
-
-  render() {
-    return (
-      <div className="view">
-        View!
-      </div>
-    );
-  }
-});
-
-render(<App />, document.getElementById('root'));
+  });
+};

@@ -3,3 +3,80 @@
 body {
   background: #111;
 }
+
+@camera-color: #DB1D0C;
+
+.client {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+
+
+  video {
+    object-fit: fill;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .btn-capture {
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+
+    width: 4rem;
+    height: 4rem;
+
+    border-radius: 50%;
+    border: 0.2rem solid darken(@camera-color, 5%);
+    background: @camera-color;
+    color: #fff;
+
+    cursor: pointer;
+
+    &:hover {
+      background: lighten(@camera-color, 5%);
+    }
+  }
+}
+
+.camera-solid {
+
+  &.icon {
+    color: lighten(@camera-color, 50%);
+    position: absolute;
+    margin-left: 5px;
+    margin-top: -10px;
+    width: 32px;
+    height: 20px;
+    border-radius: 1px;
+    border: solid 1px currentColor;
+    background-color: currentColor;
+
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 6px;
+      color: @camera-color;
+      border: solid 2px currentColor;
+      background-color: currentColor;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: 4px;
+      top: -4px;
+      width: 8px;
+      height: 2px;
+      border-radius: 2px 2px 0 0;
+      background-color: currentColor;
+    }
+  }
+}
+
+

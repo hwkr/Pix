@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/', function (request, response) {
-  response.sendFile(__dirname + '/dist/player.html')
+  response.sendFile(__dirname + '/dist/client.html')
 });
 
 io.sockets.on('connection', function (socket) {

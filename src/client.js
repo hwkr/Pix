@@ -19,6 +19,10 @@ const App = React.createClass({
   },
 
   capture() {
+    if (this.state.img) {
+      this.setState({img: ''});
+      return;
+    }
     const imageSrc = this.webcam.getScreenshot();
     console.log(imageSrc);
     this.setState({img: imageSrc});
@@ -28,7 +32,7 @@ const App = React.createClass({
   componentDidMount() {
     const t = this;
     socket.on('connect', function (data) {
-      socket.emit('join', 'Player connected!');
+      socket.emit('join', 'Client connected!');
     });
     socket.on('score', function (data) {
       t.setState({ score: data.score });
@@ -37,12 +41,13 @@ const App = React.createClass({
 
   render() {
     return (
-      <div className="player">
-        <Webcam audio={false} ref={this.setRef} screenshotFormat="image/jpeg" />
-        <br/>
-        <button onClick={this.capture}>Capture photo</button>
-        <br/>
-        <img src={this.state.img} />
+      <div className="client">
+        { this.state.img ? <img src={this.state.img} /> :
+          <Webcam audio={false} ref={this.setRef} width="auto" height="auto" screenshotFormat="image/jpeg" />
+        }
+        <button className="btn-capture" onClick={this.capture}>
+          <div className="camera-solid icon"></div>
+        </button>
       </div>
     );
   }

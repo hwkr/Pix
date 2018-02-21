@@ -5,7 +5,7 @@ var Configuration = require('./config.json');
 
 module.exports = {
   entry: {
-    player: './src/player',
+    client: './src/client',
   },
   module: {
     loaders: [

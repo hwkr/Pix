@@ -14,7 +14,18 @@ body {
 
   border-radius:  0.3rem;
 
-  video {
+  &:after {
+    content: '';
+    position: absolute;
+    border: 0.1rem solid @camera-color;
+    border-radius: 0.3rem;
+    top: 25%;
+    left: 20%;
+    width: 60%;
+    height: 50%;
+  }
+
+  video, img {
     object-fit: fill;
     min-width: 100%;
     min-height: 100%;

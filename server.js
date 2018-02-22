@@ -28,18 +28,26 @@ app.get('/view', function (request, response) {
 });
 
 io.sockets.on('connection', function (socket) {
+
   socket.on('subscribe', function(data) {
     socket.join(data.room);
-  })
-  socket.on('unsubscribe', function(data) { socket.leave(data.room); })
-});
+    console.log(data)
+  });
 
-io.on('connection', function(socket) {
+  socket.on('unsubscribe', function(data) { socket.leave(data.room); })
+
   socket.on('join', (data) => {
     console.log(data);
   });
+
   socket.on('disconnect', (reason) => {
+    console.log('Disconnect')
   });
+
+  socket.on('imgcap', (data) => {
+    socket.broadcast.to('view').emit('img', data)
+  });
+
 });
 
 server.listen(PORT, function(error) {

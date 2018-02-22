@@ -14,8 +14,12 @@ const App = React.createClass({
     };
   },
 
-  setRef(webcam) {
-    this.webcam = webcam;
+  setWebcamRef(ref) {
+    this.webcam = ref;
+  },
+
+  setClientRef(ref) {
+    this.client = ref;
   },
 
   capture() {
@@ -23,10 +27,26 @@ const App = React.createClass({
       this.setState({img: ''});
       return;
     }
-    const imageSrc = this.webcam.getScreenshot();
-    console.log(imageSrc);
-    this.setState({img: imageSrc});
-    // window.open(imageSrc, 'newwindow', 'width=800, height=600'); return false;
+    const imgSrc = this.webcam.getScreenshot();
+
+    var offsetWidth = (this.client.offsetWidth - this.webcam.canvas.width) / 2;
+    var offsetHeight = (this.client.offsetHeight - this.webcam.canvas.height) / 2;
+
+    console.log (offsetWidth, offsetHeight);
+    this.setState({img: imgSrc});
+
+    var imgSlice = {
+      // top: offsetHeight,
+      // left: -1 * offsetWidth,
+      // width: this.client.offsetWidth,
+      // height: this.client.offsetHeight,
+      top: this.client.offsetHeight * 0.25 - offsetHeight,
+      left: this.client.offsetWidth * 0.20 - offsetWidth,
+      width: this.client.offsetWidth * 0.60,
+      height: this.client.offsetHeight * 0.50,
+    }
+    console.log(imgSlice);
+    socket.emit('imgcap', { src: imgSrc, slice: imgSlice } );
   },
 
   componentDidMount() {
@@ -38,9 +58,9 @@ const App = React.createClass({
 
   render() {
     return (
-      <div className="client">
+      <div className="client" ref={this.setClientRef}>
         { this.state.img ? <img src={this.state.img} /> :
-          <Webcam audio={false} ref={this.setRef} width="auto" height="auto" screenshotFormat="image/jpeg" />
+          <Webcam audio={false} ref={this.setWebcamRef} width="auto" height="auto" screenshotFormat="image/jpeg" />
         }
         <button className="btn-capture" onClick={this.capture}>
           <div className="camera-solid icon"></div>
